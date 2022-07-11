@@ -1,0 +1,100 @@
+﻿@page
+@model StartModel
+@{
+    ViewData["Title"] = "Talamus books";
+}
+<div id="modDialog" class="modal fade" >
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+ 
+
+
+@if (Model.withDialog)
+{
+   
+<script>
+        window.onload = 
+            $(function() {
+                var url = '/Start?handler=ModalPartial';
+                $.get(url, function(data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                })
+            })
+        </script>
+}
+
+
+
+<div class="container">
+    <input name="usrid" hidden="hidden" value="@Model.UserId"/>
+        <div class="texture">
+        </div>
+
+        <div class="fog">
+            <img src="img/tuman.png" alt="fog">
+        </div>
+        <h1>@Html.DisplayFor(a=>a.HelloMsg)</h1>
+        <div class="line">
+            <hr>
+        </div>
+    @if (Model.LastPart > 0)
+    {   
+        <form method="post">
+            <input name="PartId" value="@Model.LastPart" hidden="hidden"/>
+            <input name="userId" hidden="hidden" value="@Model.UserId"/>
+            <input type="submit" class="button button--full" asp-page="Part" value="Продолжить чтение" />
+        </form>
+        
+    }
+    @foreach (var item in Model.Books)
+    {
+        @if (item.Hidden) continue;
+        <div class="bookBlock text">
+                            <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+                                           
+                                                <img class="img-responsive" src="@Html.Raw(item.ImageUrl)" alt="Cover for @item.Title">
+                                            
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-xs-8 thumb">
+                                        <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                                        <p>
+                                         @Html.Raw(item.Description)
+                                        </p>
+                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 offset-md-8">
+                    @if(item.Price>0){
+                        <form method="post">
+                             <input name="bookId" value="@item.Id" hidden="hidden"/>
+                             <input name="userId" hidden="hidden" value="@Model.UserId"/>
+                            <input type="submit" class="button button--full" asp-page-handler="Buy" value="Купить за @item.Price р." />
+                        </form>
+                    } else
+                    {
+                        <form method="post">
+                        <input name="bookId" value="@item.Id" hidden="hidden"/>
+                        <input name="userId" hidden="hidden" value="@Model.UserId"/>
+                        @if(Model.Savings.Find(s=>s.BookId==item.Id)!=null){
+                            <input name="partId" value="@Model.Savings.Find(s=>s.BookId==item.Id).PartId" hidden="hidden"/>
+                            
+                                <input type="submit" class="button button--full" asp-page="Part" value="Продолжить чтение" />
+                                <input type="submit" class="button button--full" asp-page-handler="Read" asp-page="Part"  value="Начать заново" />
+                            }
+                            else
+                            {
+                                <input type="submit" class="button button--full"  asp-page-handler="Read" asp-page="Part"  value="Читать" />
+                            }
+                        </form>
+                    }
+                   
+                                </div>
+                            </div>
+                    </div>
+    }
+
+                 
+           
+    </div>

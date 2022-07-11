@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Talamus books";
+}
+<script src="@Url.Content("https://telegram.org/js/telegram-web-app.js")" type="text/javascript"></script>
+
+<script>
+        function Start() { // for debug comment Id and Name taken from telegram 
+            try {
+                var userInfo = window.Telegram.WebApp.initDataUnsafe.user;
+                var ID = userInfo.id;
+                // var ID = 1;
+                var Name = userInfo.first_name;
+               //  var Name = "Pavel";
+                if (ID != '')
+                    document.location.replace(`/Start?handler=UserId&usrId=${ID}&usrLogin=${Name}`);
+            } catch (e) {
+                var doc = document.getElementById("h1message"); 
+                doc.innerHTML = "Вход на этот сайт доступен только через Telegram";
+            }
+        }
+    </script>
+    
+<div class="container" style="text-align:center">
+        <div class="texture">
+        </div>
+
+        <div class="fog">
+            <img src="img/tuman.png" alt="fog">
+        </div>
+        <h1 id="h1message"></h1>
+    </div>
+    <script>
+        Start();        
+    </script>
+   

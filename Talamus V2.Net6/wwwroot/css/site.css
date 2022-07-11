@@ -1,0 +1,196 @@
+body {
+    position: relative;
+    background-color: #5e0dac;
+    font-family: 'Roboto', sans-serif;
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    background-color: #3b0470;
+    border-color: #a069d6;
+    border-width: 0px 3px;
+    border-style: solid;
+    padding: 0;
+    z-index: -1;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #e138aa;
+    text-align: right;
+    font-size: 34px;
+    font-weight: 900;
+    padding: 100px 32px 0 0;
+    letter-spacing: 1ch;
+}
+
+.container .line {
+    margin: 0 35px;
+}
+
+hr {
+    border: none;
+    color: #7f0055;
+    background-color: #7f0055;
+    height: 3px;
+    opacity: 100;
+    width: 100%;
+}
+
+.container .texture {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    transform: translateY(-20px);
+    z-index: -2;
+}
+
+.container .veronica {
+    position: absolute;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    z-index: -1;
+}
+
+@media (min-width: 100px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .texture {
+        height: 100vh;
+        background: url('../img/texture.png') center center/cover repeat-y;
+        max-width: 1320px;
+    }
+}
+
+img {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.veronica img {
+    padding: 0 10px;
+}
+
+.fog img {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 75%;
+    z-index: -1;
+}
+
+.text {
+    color: white;
+    padding: 20px 35px;
+    font-size: medium;
+    font-weight: 200;
+    line-height: 3.5ex;
+}
+
+.form__radios {
+    display: grid;
+    gap: 1em;
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+.form__radio {
+    align-items: center;
+    background-color: #fefdfe;
+    border-radius: 1em;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+    display: flex;
+    padding: 1em;
+}
+
+    .form__radio label {
+        align-items: center;
+        display: flex;
+        flex: 1;
+        gap: 1em;
+    }
+
+
+input[type="radio"] {
+    accent-color: #D2F870;
+}
+
+.button {
+    align-items: center;
+    background-color: #7F0055;
+    border-radius: 999em;
+    color: #fff;
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+    padding-block: 0.75em;
+    padding-inline: 1em;
+    transition: 0.3s;
+}
+
+    .button:focus,
+    .button:hover {
+        background-color: #A069D6;
+    }
+
+.button--full {
+    inline-size: 100%;
+}
+
+.bookBlock {
+    min-height: 200px;
+    background-color: rgba(205,153,255,0.15);
+    margin: 10px 35px;
+    padding: 10px 10px;
+}
+
+    .bookBlock h2 {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: 900;
+        color: rgb(174, 141, 253);
+    }

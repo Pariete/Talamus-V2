@@ -1,0 +1,59 @@
+﻿@page
+@model Talamus_V2.Net6.Pages.PartModel
+@{
+    ViewData["Title"] = @Model.Title;
+}
+<script>
+function Choose(i) {
+    document.getElementById(i).checked = true;
+}
+</script>
+
+
+<div class="container">
+    <div class="texture">
+    </div>
+
+    <div class="veronica">
+        <img src="img/Veronica.png" alt="veronica">
+    </div>
+
+    <div class="fog">
+        <img src="img/tuman.png" alt="fog">
+    </div>
+    <h1>@Html.DisplayFor(model => model.Part.Title)</h1>
+    <div class="line">
+        <hr>
+    </div>
+    <div class="text">
+        @Html.Raw(Model.Part.Content)
+    </div>
+    <div>
+        <form class="form" method="POST">
+            .<div class="form__radios">
+                <input name="userId" value="@Model.UserId" hidden="hidden" />
+                <div class="form__radio" onclick="Choose('@Model.SubsequentParts[0].Id');">
+                    <label>@Html.DisplayFor(model => model.SubsequentParts[0].Title)</label>
+                    <input name="id" type="radio" value="@Model.SubsequentParts[0].Id" checked="checked" id="@Model.SubsequentParts[0].Id"/>
+                </div>
+                @for(int i=1;i<Model.SubsequentParts.Count; i++)
+            {
+             <div class="form__radio" onclick="Choose('@Model.SubsequentParts[i].Id');">
+                 <label>@Html.DisplayFor(model => model.SubsequentParts[i].Title)</label>
+                 <input name="id" type="radio" value="@Model.SubsequentParts[i].Id" id="@Model.SubsequentParts[i].Id" />
+             </div>
+            }
+                @if (Model.SubsequentParts[0].Id == 0)
+                {
+                     <input type="submit" class="button button--full" asp-route-usrId="@Model.UserId.ToString()" asp-page-handler="UserId" asp-page="Start"  value="Выбрать" />
+                }
+                else
+                {
+                     <input type="submit" class="button button--full" asp-page-handler="ById" value="Выбрать" />
+                }
+               
+            </div>
+        </form>
+    </div>
+
+</div>

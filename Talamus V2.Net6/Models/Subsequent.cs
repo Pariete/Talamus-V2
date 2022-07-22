@@ -6,7 +6,7 @@ namespace Talamus_V2.Net6.Models
     {
         [Key]
         public int Id { get; set; }
-        public int PartId { get; set; }
-        public int NextPartId { get; set; }
+        public Part Part { get; set; }
+        public Part NextPart { get; set; }
     }
 }

@@ -7,8 +7,8 @@ namespace Talamus_V2.Net6.Models
     {
         [Key]
         public int Id { get; set; }
-        public int BookId { get; set; }
-        public Book? Book { get; set; }
+        public Guid Guid { get; set; }
+        public Book Book { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         [Required]

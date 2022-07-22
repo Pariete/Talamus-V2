@@ -31,11 +31,11 @@ namespace Talamus_V2.Net6.Pages
             User user = _context.Users.FirstOrDefault(u => u.UserId == userId);
             Part part = _context.Parts.Include(b => b.Book).FirstOrDefault(p => p.Id == partId);
 
-            Saving save = _context.Savings.FirstOrDefault(s => s.UserId == user.Id && s.BookId == part.BookId);
+            Saving save = _context.Savings.FirstOrDefault(s => s.UserId == user.Id && s.BookId == part.Book.Id);
 
             if (save == null)
             {
-                save = new Saving() { User = user, BookId = part.BookId, PartId = part.Id, Timestamp = DateTime.Now };
+                save = new Saving() { User = user, BookId = part.Book.Id, PartId = part.Id, Timestamp = DateTime.Now };
                 _context.Savings.Add(save);
             }
             else
@@ -48,7 +48,7 @@ namespace Talamus_V2.Net6.Pages
         }
         public async Task OnPostReadAsync(int bookId, long userId)
         {
-            Part part = _context.Parts.FirstOrDefault(p => p.BookId == bookId && p.PageNumber == 1);
+            Part part = _context.Parts.Include(b => b.Book).FirstOrDefault(p => p.Book.Id == bookId && p.PageNumber == 1);
             await OnPostAsync(part.Id, userId);
         }
         
@@ -67,11 +67,11 @@ namespace Talamus_V2.Net6.Pages
                 Part = _context.Parts.FirstOrDefault(i => i.Id == partId);
                 SubsequentParts = new List<Part>();
 
-                List<Subsequent> subsequents = _context.Subsequents.Where(s => s.PartId == partId).ToList();
+                List<Subsequent> subsequents = _context.Subsequents.Include(s=>s.Part).Include(s=>s.NextPart).Where(s => s.Part.Id == partId).ToList();
 
                 foreach (var subsequent in subsequents)
                 {
-                    SubsequentParts.Add(_context.Parts.FirstOrDefault(p => p.Id == subsequent.NextPartId));
+                    SubsequentParts.Add(_context.Parts.FirstOrDefault(p => p.Id == subsequent.NextPart.Id));
                 }
 
                 if (SubsequentParts.Count() == 0)
@@ -97,11 +97,11 @@ namespace Talamus_V2.Net6.Pages
                 Part = _context.Parts.FirstOrDefault(i => i.Id == id);
                 SubsequentParts = new List<Part>();
 
-                List<Subsequent> subsequents = _context.Subsequents.Where(s => s.PartId == id).ToList();
+                List<Subsequent> subsequents = _context.Subsequents.Include(s=>s.Part).Include(s=>s.NextPart).Where(s => s.Part.Id == id).ToList();
 
                 foreach (var subsequent in subsequents)
                 {
-                    SubsequentParts.Add(_context.Parts.FirstOrDefault(p => p.Id == subsequent.NextPartId));
+                    SubsequentParts.Add(_context.Parts.FirstOrDefault(p => p.Id == subsequent.NextPart.Id));
                 }
 
                 if (SubsequentParts == null || SubsequentParts.Count() == 0)

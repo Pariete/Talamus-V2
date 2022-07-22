@@ -8,11 +8,11 @@
 <script>
         function Start() { // for debug comment Id and Name taken from telegram 
             try {
-                var userInfo = window.Telegram.WebApp.initDataUnsafe.user;
-                var ID = userInfo.id;
-                // var ID = 1;
-                var Name = userInfo.first_name;
-               //  var Name = "Pavel";
+                //var userInfo = window.Telegram.WebApp.initDataUnsafe.user;
+               // var ID = userInfo.id;
+                 var ID = 1;
+               // var Name = userInfo.first_name;
+                 var Name = "Pavel";
                 if (ID != '')
                     document.location.replace(`/Start?handler=UserId&usrId=${ID}&usrLogin=${Name}`);
             } catch (e) {

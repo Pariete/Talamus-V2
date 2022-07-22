@@ -8,6 +8,17 @@ namespace Talamus_V2.Net6
         public TalamusContext(DbContextOptions<TalamusContext> options)
           : base(options)
         {
+            Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity(typeof(Subsequent))
+            .HasOne(typeof(Part), "Part")
+            .WithMany()
+            .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Part> Parts { get; set; }
